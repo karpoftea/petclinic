@@ -1,0 +1,59 @@
+#apiVersion: security.istio.io/v1beta1
+#kind: AuthorizationPolicy
+#metadata:
+#  name: springboot-petclinic
+#spec:
+#  selector:
+#    matchLabels:
+#      app: springboot-petclinic-v1
+#  action: ALLOW
+#  rules:
+#    - from:
+#        - source:
+#            requestPrincipals: [ "*" ]
+
+#apiVersion: security.istio.io/v1beta1
+#kind: AuthorizationPolicy
+#metadata:
+#  name: allow-all
+#spec:
+#  action: ALLOW
+#  # This matches everything.
+#  rules:
+#    - {}
+
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: springboot-petclinic
+spec:
+  selector:
+    matchLabels:
+      app: springboot-petclinic-v1
+  action: ALLOW
+  rules:
+    # show index page to anyone
+    - to:
+        - operation:
+            methods: [ "GET" ]
+            paths: [ "/", "*.css", "*.js", "*.html", "*.png", "*.woff", "*.woff2", "*.ico", "/manage/health", "/.well-known/*" ]
+    # show /vets only to admins
+    - to:
+        - operation:
+            paths: [ "/vets" ]
+      from:
+        - source:
+            requestPrincipals: [ "*" ]
+      when:
+        - key: request.auth.claims[https://petclinic.ikarpov.net/roles]
+          values: [ "petclinic-admin" ]
+    # show /owners/* to managers and admins
+    - to:
+        - operation:
+            paths: [ "/owners/*" ]
+      from:
+        - source:
+            requestPrincipals: [ "*" ]
+      when:
+        - key: request.auth.claims[https://petclinic.ikarpov.net/roles]
+          values: [ "petclinic-manager", "petclinic-admin" ]

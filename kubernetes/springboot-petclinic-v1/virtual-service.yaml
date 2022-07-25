@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: springboot-petclinic
+spec:
+  gateways:
+  - istio-system/petclinic-gateway
+  hosts:
+  - petclinic.ikarpov.net
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: springboot-petclinic-v1
+        port:
+          number: 8080

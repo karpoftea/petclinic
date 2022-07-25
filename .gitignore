@@ -1,4 +1,10 @@
+# idea
+.idea
+
 # terraform
 terraform/private.auto.tfvars
 terraform/.*
 terraform/*.tfstate*
+
+# kubernetes
+kubernetes/environment.sh

@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: springboot-petclinic
+
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - service-account.yaml
+  - virtual-service.yaml
+  - request-auth.yaml
+  - auth-policy.yaml
+
+generators:
+  - secret-generator.yaml
+
+images:
+  - name: registry.digitalocean.com/karpoftea-cr-main/arey/springboot-petclinic
+    digest: sha256:d9d477fef357d59be2364904d1311ef7548867dbf46f85a556cf85122e28166a

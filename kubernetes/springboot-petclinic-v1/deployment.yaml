@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: springboot-petclinic-v1
+  name: springboot-petclinic-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-petclinic-v1
+  strategy: { }
+  template:
+    metadata:
+      labels:
+        app: springboot-petclinic-v1
+    spec:
+      serviceAccountName: springboot-petclinic
+      containers:
+        - image: registry.digitalocean.com/karpoftea-cr-main/arey/springboot-petclinic
+          name: application
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xms256M -Xmx256M"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi

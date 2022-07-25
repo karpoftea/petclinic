@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: petclinic-gateway
+spec:
+  selector:
+    app: istio-ingressgateway
+  servers:
+    - hosts:
+      - springboot-petclinic/petclinic.ikarpov.net
+      - httpbin/petclinic.ikarpov.net
+      port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        credentialName: petclinic-tls
+        mode: SIMPLE

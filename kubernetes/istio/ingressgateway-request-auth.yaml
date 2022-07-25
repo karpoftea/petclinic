@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: istio-ingressgateway
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+  jwtRules:
+    - issuer: https://dev-jf-ctr97.us.auth0.com/
+      jwksUri: https://dev-jf-ctr97.us.auth0.com/.well-known/jwks.json
+      forwardOriginalToken: true

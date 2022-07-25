@@ -1,0 +1,11 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: springboot-petclinic
+spec:
+  selector:
+    matchLabels:
+      app: springboot-petclinic-v1
+  jwtRules:
+    - issuer: https://dev-jf-ctr97.us.auth0.com/
+      jwksUri: https://dev-jf-ctr97.us.auth0.com/.well-known/jwks.json

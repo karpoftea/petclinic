@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin
+spec:
+  gateways:
+  - istio-system/petclinic-gateway
+  hosts:
+  - petclinic.ikarpov.net
+  http:
+  - match:
+    - uri:
+        prefix: /debug
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: httpbin
+        port:
+          number: 8000
