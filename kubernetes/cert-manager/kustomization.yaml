@@ -5,4 +5,8 @@ namespace: cert-manager
 
 resources:
   - cert-manager.yaml
-  - letsencrypt-issuer.yaml
+#  - letsencrypt-issuer.yaml
+  - internal-ca-issuer.yaml
+
+generators:
+  - secret-generator.yaml
