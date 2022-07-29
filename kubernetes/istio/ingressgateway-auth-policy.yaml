@@ -13,4 +13,4 @@ spec:
     - to:
         - operation:
             methods: [ "GET" ]
-            notPaths: [ "/manage/health", "/.well-known/*" ]
+            notPaths: [ "/.well-known/*" ]
