@@ -39,3 +39,6 @@ OIDC_DISCOVERY_URL_RESPONSE=$(curl $OIDC_DISCOVERY_URL)
 OIDC_ISSUER_URL=$(echo $OIDC_DISCOVERY_URL_RESPONSE | jq -r .issuer)
 OIDC_JWKS_URI=$(echo $OIDC_DISCOVERY_URL_RESPONSE | jq -r .jwks_uri)
 ```
+
+# Logout URL
+`https://petclinic.ikarpov.net/oauth2/sign_out?rd=https%3A%2F%2Fdev-jf-ctr97.us.auth0.com%2Fv2%2Flogout%3Fclient_id%3De3uEhv8JjvN1x7dElEoy01fbtaaHxaSM`

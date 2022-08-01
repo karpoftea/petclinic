@@ -26,7 +26,7 @@ spec:
             - --http-address=0.0.0.0:4180
             - --upstream=static://200
             - --skip-provider-button=true
-            - --whitelist-domain=petclinic.ikarpov.net
+            - --whitelist-domain=petclinic.ikarpov.net,dev-jf-ctr97.us.auth0.com
             - --oidc-issuer-url=https://dev-jf-ctr97.us.auth0.com/
           env:
             - name: OAUTH2_PROXY_CLIENT_ID

@@ -9,6 +9,7 @@ spec:
     - hosts:
       - springboot-petclinic/petclinic.ikarpov.net
       - httpbin/petclinic.ikarpov.net
+      - oauth2-proxy/petclinic.ikarpov.net
       port:
         number: 443
         name: https
