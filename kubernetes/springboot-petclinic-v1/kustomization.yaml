@@ -9,8 +9,8 @@ resources:
   - service.yaml
   - service-account.yaml
   - virtual-service.yaml
-  - request-auth.yaml
-  - auth-policy.yaml
+  - authn-policy.yaml
+  - authz-policy.yaml
 
 generators:
   - secret-generator.yaml

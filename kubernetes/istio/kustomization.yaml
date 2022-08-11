@@ -10,8 +10,8 @@ resources:
   - petclinic-gateway.yaml
 #  - petclinic-letsencrypt-certificate.yaml
   - petclinic-internal-ca-certificate.yaml
-  - ingressgateway-request-auth.yaml
-  - ingressgateway-auth-policy.yaml
+  - ingressgateway-authn-policy.yaml
+  - ingressgateway-authz-policy.yaml
 
 patchesStrategicMerge:
   - patches/delete-egressgateway.yaml

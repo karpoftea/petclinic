@@ -8202,9 +8202,9 @@ data:
       envoyExtAuthzHttp:
         service: "oauth2-proxy.oauth2-proxy.svc.cluster.local"
         port: "4180"
-        includeRequestHeadersInCheck: ["authorization", "cookie"]
-        headersToUpstreamOnAllow: ["authorization", "path", "x-auth-request-user", "x-auth-request-email", "x-auth-request-access-token"]
-        headersToDownstreamOnDeny: ["content-type", "set-cookie"]
+        includeRequestHeadersInCheck: ["cookie"]
+        headersToUpstreamOnAllow: ["authorization","x-auth-request-access-token"]
+        headersToDownstreamOnDeny: ["set-cookie"]
     rootNamespace: istio-system
     trustDomain: cluster.local
 ---

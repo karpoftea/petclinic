@@ -1,3 +1,4 @@
+# AuthN policy used to check validity of JWT from `Authorization: Bearer encoded-jwt`
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
@@ -9,4 +10,5 @@ spec:
   jwtRules:
     - issuer: https://dev-jf-ctr97.us.auth0.com/
       jwksUri: https://dev-jf-ctr97.us.auth0.com/.well-known/jwks.json
+      # forward JWT to upstream workload
       forwardOriginalToken: true

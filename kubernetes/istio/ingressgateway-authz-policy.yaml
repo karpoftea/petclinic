@@ -1,3 +1,4 @@
+# Enables AuthZ for all incoming calls to ingress-gateway
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
@@ -10,7 +11,4 @@ spec:
   provider:
     name: oauth2-proxy
   rules:
-    - to:
-        - operation:
-            methods: [ "GET" ]
-            notPaths: [ "/.well-known/*" ]
+  - {}

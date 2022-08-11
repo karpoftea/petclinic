@@ -16,18 +16,26 @@ spec:
           image: quay.io/oauth2-proxy/oauth2-proxy:v7.3.0
           args:
             - --provider=oidc
+            - --code-challenge-method=S256
             - --cookie-secure=true
             - --cookie-samesite=lax
             - --cookie-refresh=1h
             - --cookie-expire=4h
             - --cookie-name=_oauth2_proxy_istio_ingressgateway
-            - --set-authorization-header=true
-            - --email-domain=*
-            - --http-address=0.0.0.0:4180
             - --upstream=static://200
-            - --skip-provider-button=true
-            - --whitelist-domain=petclinic.ikarpov.net,dev-jf-ctr97.us.auth0.com
+            - --whitelist-domain=petclinic.ikarpov.net,dev-jf-ctr97.us.auth0.com # auth0 domain is needed for logout redirect
+            - --skip-oidc-discovery=true # workaround: auth0 need 'audience' query param in login url to create valid access-token (see: https://github.com/oauth2-proxy/oauth2-proxy/issues/1406 and https://github.com/oauth2-proxy/oauth2-proxy/issues/1250)
             - --oidc-issuer-url=https://dev-jf-ctr97.us.auth0.com/
+            - --oidc-jwks-url=https://dev-jf-ctr97.us.auth0.com/.well-known/jwks.json
+            - --login-url=https://dev-jf-ctr97.us.auth0.com/authorize?audience=https://api.petclinic.ikarpov.net
+            - --redeem-url=https://dev-jf-ctr97.us.auth0.com/oauth/token
+            - --email-domain=*
+            - --set-authorization-header=true
+            - --pass-access-token=true # adds `X-Auth-Request-Access-Token` header when `set-xauthrequest` is enabled
+            - --set-xauthrequest=true # adds `X-Auth-Request-XXX` headers. Remember to allow headers in istio mesh config (i.e. headersToUpstreamOnAllow)
+            - --silence-ping-logging=true
+            - --skip-provider-button=true
+            - --http-address=0.0.0.0:4180
           env:
             - name: OAUTH2_PROXY_CLIENT_ID
               valueFrom:

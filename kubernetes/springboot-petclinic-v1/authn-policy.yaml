@@ -1,3 +1,4 @@
+# AuthN policy used to check validity of JWT from `Authorization: Bearer encoded-jwt` and apply AuthZ Policy
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
