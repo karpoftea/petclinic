@@ -1,68 +1,55 @@
-#apiVersion: security.istio.io/v1beta1
-#kind: AuthorizationPolicy
-#metadata:
-#  name: springboot-petclinic
-#spec:
-#  selector:
-#    matchLabels:
-#      app: springboot-petclinic-v1
-#  action: ALLOW
-#  rules:
-#    - to:
-#        - operation:
-#            methods: [ "GET" ]
-#            paths: [ "/", "*.css", "*.js", "*.html", "*.png", "*.woff", "*.woff2", "*.ico", "/manage/health" ]
-#      when:
-#        - key: request.auth.claims[permissions]
-#          values: [ "read:static" ]
-
-#    - to:
-#        - operation:
-#            paths: ["*"]
-#      from:
-#        - source:
-#            requestPrincipals: [ "*" ]
-#    - to:
-#        - operation:
-#            methods: ["GET"]
-#            paths: [ "/vets" ]
-#      when:
-#        - key: request.auth.claims[permissions]
-#          values: [ "read:vets" ]
-#    - to:
-#        - operation:
-#            methods: ["GET"]
-#            paths: [ "/owners/*" ]
-#      when:
-#        - key: request.auth.claims[permissions]
-#          values: [ "read:owners" ]
-#    - to:
-#        - operation:
-#            methods: [ "POST" ]
-#            paths: [ "/owners/*" ]
-#      when:
-#        - key: request.auth.claims[permissions]
-#          values: [ "write:owners" ]
-
-##### some tips and tricks here:
-#    - to:
-#        - operation:
-#            methods: [ "GET" ]
-#            paths: [ "/", "*.css", "*.js", "*.html", "*.png", "*.woff", "*.woff2", "*.ico", "/manage/health", "/.well-known/*" ]
-#---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: allow-authorized
+  name: springboot-petclinic
 spec:
   selector:
     matchLabels:
       app: springboot-petclinic-v1
   action: ALLOW
   rules:
-    - from:
+    - to:
+        - operation:
+            methods: [ "GET" ]
+            paths: [ "/", "*.css", "*.js", "*.html", "*.png", "*.woff", "*.woff2", "*.ico", "/manage/health" ]
+      from:
         - source:
             requestPrincipals: [ "*" ]
+    - to:
+        - operation:
+            methods: [ "GET" ]
+            paths: [ "/owners/*" ]
+      when:
+        - key: request.auth.claims[permissions]
+          values: [ "read:owners" ]
+    - to:
+        - operation:
+            methods: [ "POST", "PUT" ]
+            paths: [ "/owners/*" ]
+      when:
+        - key: request.auth.claims[permissions]
+          values: [ "write:owners" ]
+    - to:
+        - operation:
+            methods: [ "GET" ]
+            paths: [ "/vets" ]
+      when:
+        - key: request.auth.claims[permissions]
+          values: [ "read:vets" ]
+#---
+#apiVersion: security.istio.io/v1beta1
+#kind: AuthorizationPolicy
+#metadata:
+#  name: allow-authorized
+#spec:
+#  selector:
+#    matchLabels:
+#      app: springboot-petclinic-v1
+#  action: ALLOW
+#  rules:
+#    - from:
+#        - source:
+#            requestPrincipals: [ "*" ]
 #---
 #apiVersion: security.istio.io/v1beta1
 #kind: AuthorizationPolicy

@@ -11,3 +11,8 @@ resources:
 
 generators:
   - secret-generator.yaml
+
+configMapGenerator:
+  - name: oauth2-proxy
+    files:
+      - config/alpha-config.yaml

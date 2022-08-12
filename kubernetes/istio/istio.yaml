@@ -8203,7 +8203,7 @@ data:
         service: "oauth2-proxy.oauth2-proxy.svc.cluster.local"
         port: "4180"
         includeRequestHeadersInCheck: ["cookie"]
-        headersToUpstreamOnAllow: ["authorization","x-auth-request-access-token"]
+        headersToUpstreamOnAllow: ["authorization","x-auth-request-id-token"]
         headersToDownstreamOnDeny: ["set-cookie"]
     rootNamespace: istio-system
     trustDomain: cluster.local
