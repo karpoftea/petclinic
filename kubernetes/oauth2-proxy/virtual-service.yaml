@@ -10,6 +10,21 @@ spec:
   http:
     - match:
         - uri:
+            # note `/oauth2/userinfo` endpoint is served by oauth2-proxy pod
+            prefix: /oauth/userinfo
+      rewrite:
+        uri: /userinfo
+      headers:
+        request:
+          set:
+            host: "dev-jf-ctr97.us.auth0.com"
+      route:
+        - destination:
+            host: dev-jf-ctr97.us.auth0.com
+            port:
+              number: 80
+    - match:
+        - uri:
             prefix: /oauth2
       route:
         - destination:

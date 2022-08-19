@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-idp
+spec:
+  hosts:
+    - dev-jf-ctr97.us.auth0.com
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+      targetPort: 443
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: originate-tls-for-idp
+spec:
+  host: dev-jf-ctr97.us.auth0.com
+  trafficPolicy:
+    tls:
+      mode: SIMPLE

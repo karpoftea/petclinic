@@ -8,6 +8,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - virtual-service.yaml
+  - idp-service-entry.yaml
 
 generators:
   - secret-generator.yaml
